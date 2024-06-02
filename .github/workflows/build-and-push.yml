@@ -17,14 +17,24 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: 1.22.3
-          
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_PSSWD }}
+
+    - name: Initialize Go module
+      run: |
+        cd go-app
+        if [ ! -f go.mod ]; then
+          go mod init go-app
+        fi
+        go mod tidy
 
     - name: Build and push Docker image
-      run: |
-        docker image build -t ${{ secrets.DOCKER_HUB_USERNAME }}/hello-botgauge:v1 -f go-app/Dockerfile .
-        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/hello-botgauge:v1
+      uses: docker/build-push-action@v2
+      with:
+        context: ./go-app
+        file: ./go-app/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/hello-botgauge:v1
+      env:
+        DOCKER_REGISTRY_USER: ${{ secrets.DOCKER_HUB_USERNAME }}
+        DOCKER_REGISTRY_PASS: ${{ secrets.DOCKER_HUB_PASSWORD }}    
+          
+    
