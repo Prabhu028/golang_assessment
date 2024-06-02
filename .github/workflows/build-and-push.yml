@@ -26,5 +26,5 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker image build -t ${{ secrets.DOCKER_HUB_USERNAME }}/hello-botgauge:v1 -f go-app/ .
+        docker image build -t ${{ secrets.DOCKER_HUB_USERNAME }}/hello-botgauge:v1 -f go-app/Dockerfile .
         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/hello-botgauge:v1
