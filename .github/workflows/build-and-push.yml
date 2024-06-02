@@ -26,6 +26,12 @@ jobs:
         fi
         go mod tidy
 
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_PSSWD }}     
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
@@ -33,8 +39,6 @@ jobs:
         file: ./go-app/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/botgauge:v1
-      env:
-        DOCKER_REGISTRY_USER: ${{ secrets.DOCKER_HUB_USERNAME }}
-        DOCKER_REGISTRY_PASS: ${{ secrets.DOCKER_ACCESS_TOKEN }}    
+          
           
     
