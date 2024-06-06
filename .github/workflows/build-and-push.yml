@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build, Push and Deploy
 
 on:
   push:
@@ -39,6 +39,10 @@ jobs:
         file: ./go-app/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/botgauge:v1
+
+         
+
+       
           
           
     

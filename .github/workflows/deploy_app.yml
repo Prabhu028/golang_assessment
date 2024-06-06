@@ -1,0 +1,40 @@
+name: app_Deployment
+
+on:
+  repository_dispatch:
+    types: [docker-push]
+
+jobs:
+  app-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --name my-eks-cluster --region us-east-1
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4.2.0
+        with:
+          version: latest
+
+      - name: Deploy with Helm
+        run: |
+          helm create app_helm
+          helm package app_helm
+          helm install app_helm ./app_helm-0.1.0.tgz
+
+                   
