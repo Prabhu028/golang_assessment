@@ -23,7 +23,5 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
 
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
