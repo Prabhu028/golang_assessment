@@ -3,7 +3,7 @@ name: app_Deployment
 on:
   push:
     paths:
-    - 'app_helm/**'
+    - 'app-helm/**'
 
 jobs:
   app-deploy:
@@ -34,8 +34,8 @@ jobs:
 
       - name: Deploy with Helm
         run: |
-          helm create app_helm
-          helm package app_helm
-          helm install app_helm ./app_helm-0.1.0.tgz
+          helm create app-helm
+          helm package app-helm
+          helm install app-helm ./app-helm-0.1.0.tgz
 
                    
