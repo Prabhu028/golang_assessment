@@ -5,7 +5,7 @@ import (
     "net/http"
 )
 
-// helloHandler is a function that handles HTTP requests to the /hello path.
+//helloHandler is a function that handles HTTP requests to the /hello path.
 func helloHandler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "Hello from Botgauge")
 }
