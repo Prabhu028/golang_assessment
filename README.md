@@ -49,5 +49,5 @@ Deploying the application to EKS using Helm
    helm install app-helm ./app-helm-0.1.0.tgz
 
 
-![Alt text](Botgauge.png)
+![Alt text](hellobotgauge.png)
 
