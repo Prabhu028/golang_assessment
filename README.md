@@ -1,2 +1,2 @@
 # golang_assessment
-This is assessment repo
+This is project repo
