@@ -1,8 +1,9 @@
 name: app_Deployment
 
 on:
-  repository_dispatch:
-    types: [docker-push]
+  push:
+    paths:
+    - 'app_helm/**'
 
 jobs:
   app-deploy:
